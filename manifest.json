@@ -1,0 +1,35 @@
+{
+  "manifest_version": 2,
+  "name": "sgs",
+  "version": "1.0.0",
+  "description": "swagger的前端辅助插件",
+  "icons": {
+    "16": "img/icon.ico",
+    "48": "img/icon.ico",
+    "128": "img/icon.ico"
+  },
+  "browser_action": {
+    "default_icon": "img/icon.ico",
+    "default_title": "今天也要努力鸭！",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["js/content-scripts.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "contextMenus",
+    "tabs",
+    "notifications",
+    "webRequest",
+    "webRequestBlocking",
+    "storage",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "web_accessible_resources": ["js/inject.js"],
+  "homepage_url": "https://www.baidu.com"
+}
