@@ -1,0 +1,17 @@
+{
+  "name": "sgs",
+  "version": "1.0.0",
+  "description": "chrome extension of swagger helper",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/limengke123/sgs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/limengke123/sgs/issues"
+  },
+  "homepage": "https://github.com/limengke123/sgs#readme"
+}
