@@ -1,6 +1,7 @@
 function createButton (buttonName) {
     const button = document.createElement('div')
     button.innerText = buttonName
+    button.className = 'sgs--button'
     return button
 }
 
@@ -128,8 +129,6 @@ function copy (text) {
                 const button = createButton('复制')
                 button.addEventListener('click', () => {
                     copy(JSON.stringify(headingInfo))
-                    console.log(headingInfo)
-                    console.log(contentInfo)
                 })
                 heading.appendChild(button)
             } catch (e) {
