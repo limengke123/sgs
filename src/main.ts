@@ -17,7 +17,7 @@ setTimeout(() => {
             const functionDeclaration = reorganizeDataIntoTemplate(headingInfo, contentInfo)
             const requestDeclaration = reorganizeRequestModel(headingInfo, contentInfo)
             const responseDeclaration = reorganizeResponseModel(contentInfo)
-            const button = ElementHelper.createButton('复制')
+            const button = ElementHelper.createButton('复制函数')
             button.addEventListener('click', () => {
                 console.log(functionDeclaration)
                 UtilHelp.copy(functionDeclaration)
@@ -28,7 +28,7 @@ setTimeout(() => {
                 UtilHelp.copy(requestDeclaration)
             })
 
-            const button3 = ElementHelper.createButton('复制返参')
+            const button3 = ElementHelper.createButton('复制返参', buttonTypeEnum.normal)
             button3.addEventListener('click', () => {
                 console.log(responseDeclaration)
                 UtilHelp.copy(responseDeclaration)

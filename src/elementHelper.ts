@@ -1,6 +1,7 @@
 export const enum buttonTypeEnum {
     primary = 'primary',
-    default = 'default'
+    default = 'default',
+    normal = 'normal'
 }
 
 export class ElementHelper {
@@ -14,6 +15,9 @@ export class ElementHelper {
                 break
             case buttonTypeEnum.default:
                 className += ' sgs--button_default'
+                break
+            case buttonTypeEnum.normal:
+                className += ' sgs--button_normal'
                 break
         }
         button.className = className
