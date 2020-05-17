@@ -5,3 +5,11 @@
 
 
 这里有一个手动复制生成型的页面工具：[地址](https://limengke123.github.io/tiny-waffle/#/sg2ts)
+
+## 使用
+
+```bash
+yarn build
+```
+
+生成lib目录，浏览器扩展程序添加lib目录下的文件，即可加载插件。

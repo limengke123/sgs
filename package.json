@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "chrome extension of swagger helper",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "rollup --config -w",
+    "build": "rollup --config"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/limengke123/sgs.git"
@@ -13,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/limengke123/sgs/issues"
   },
-  "homepage": "https://github.com/limengke123/sgs#readme"
+  "homepage": "https://github.com/limengke123/sgs#readme",
+  "devDependencies": {
+    "rollup": "^2.10.2",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-copy": "^3.3.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "typescript": "^3.9.2"
+  }
 }
