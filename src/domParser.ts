@@ -58,7 +58,7 @@ export class DomParser {
             required = true
         }
         const description = columns[2].innerText.trim()
-        const type = columns[4].innerText.trim()
+        const type = Resolver.getTypeString(columns[4].innerText.trim())
         return { paramName, required, description, type }
     }
 
@@ -89,7 +89,6 @@ export class DomParser {
                 value: sg2ts(fragment.join('\n'))
             })
         }
-        console.log(result)
         return result
     }
 

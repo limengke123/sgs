@@ -3,6 +3,7 @@ import {buttonTypeEnum, ElementHelper} from "./elementHelper";
 import {reorganizeDataIntoTemplate} from "./template/functionDeclaration";
 import {reorganizeRequestModel} from "./template/requestDeclaration";
 import {reorganizeResponseModel} from "./template/responseDeclaration";
+import {UtilHelp} from "./utilHelp";
 
 
 setTimeout(() => {
@@ -19,15 +20,18 @@ setTimeout(() => {
             const button = ElementHelper.createButton('复制')
             button.addEventListener('click', () => {
                 console.log(functionDeclaration)
+                UtilHelp.copy(functionDeclaration)
             })
             const button2 = ElementHelper.createButton('复制入参', buttonTypeEnum.primary)
             button2.addEventListener('click', () => {
                 console.log(requestDeclaration)
+                UtilHelp.copy(requestDeclaration)
             })
 
             const button3 = ElementHelper.createButton('复制返参')
             button3.addEventListener('click', () => {
                 console.log(responseDeclaration)
+                UtilHelp.copy(responseDeclaration)
             })
             heading.appendChild(button)
             heading.appendChild(button2)
