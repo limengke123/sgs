@@ -1,26 +1,34 @@
+import {sg2ts} from 'sg2ts'
+
+
+export interface RequestModelInfo {
+    paramName: string, // 参数名称
+    required: boolean, // 是否必传
+    description: string, //
+    type: string
+}
+
+export interface HeadingModelInfo {
+    methodType: string, // 方法名称
+    path: string, // 路径
+    comment: string // 接口注解
+}
+
 export class DomParser {
 
-    /**
-     * @summary 解析头信息，返回三元组，路径、类型、注解
-     */
-    static parseHeading(headingDom) {
-        const methodType = headingDom.querySelector('.http_method').innerText.trim()
-        const path = headingDom.querySelector('.path').innerText.trim()
-        const comment = headingDom.querySelector('.options').innerText.trim()
-        return [methodType, path, comment]
+    static parseHeading(headingDom: HTMLDivElement): HeadingModelInfo {
+        const methodType = headingDom.querySelector<HTMLSpanElement>('.http_method').innerText.trim()
+        const path = headingDom.querySelector<HTMLSpanElement>('.path').innerText.trim()
+        const comment = headingDom.querySelector<HTMLUListElement>('.options').innerText.trim()
+        return { methodType, path, comment }
     }
 
-
-
-    /**
-     *
-     */
-    static parseContent(contentDom) {
-        const operationParamsDom = contentDom.querySelector('.operation-params')
+    static parseContent(contentDom: HTMLDivElement): [RequestModelInfo[], string[]] {
+        const operationParamsDom = contentDom.querySelector<HTMLTableElement>('.operation-params')
         const operationParamDomList = operationParamsDom
             ? operationParamsDom.querySelectorAll('tr')
-            : []
-        const responseModelDom = contentDom.querySelector('.description')
+            : [] as HTMLTableRowElement[]
+        const responseModelDom = contentDom.querySelector<HTMLDivElement>('.description')
         const requestModel = Array.prototype.map.call(
             operationParamDomList,
             operationParamDom => DomParser.parseRequestModel(operationParamDom)
@@ -29,9 +37,7 @@ export class DomParser {
         return [requestModel, responseModel]
     }
 
-
-
-    static parseRequestModel(dom) {
+    static parseRequestModel(dom: HTMLTableRowElement): RequestModelInfo {
         const columns = dom.querySelectorAll('td')
         const paramName = columns[0].innerText.trim()
         let required = false
@@ -40,13 +46,10 @@ export class DomParser {
         }
         const description = columns[2].innerText.trim()
         const type = columns[4].innerText.trim()
-
-        return [paramName, required, description, type]
+        return { paramName, required, description, type }
     }
 
-
-
-    static parseResponseModel(dom) {
+    static parseResponseModel(dom: HTMLDivElement): string[] {
         const childNodes = dom.childNodes || []
         let index = 0
         let result = []
@@ -65,7 +68,7 @@ export class DomParser {
             }
         }
         result.push(fragment)
-        return result.map(item => item.join('\n'))
+        return result.map(item => sg2ts(item.join('\n')))
     }
 
 }

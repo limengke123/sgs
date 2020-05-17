@@ -1,25 +1,20 @@
 import {DomParser} from "./domParser";
 import {UtilHelp} from "./utilHelp";
-
-function createButton (buttonName) {
-    const button = document.createElement('div')
-    button.innerText = buttonName
-    button.className = 'sgs--button'
-    return button
-}
+import {ElementHelper} from "./elementHelper";
 
 
 setTimeout(() => {
-    const operations = document.body.querySelectorAll('.operation')
+    const operations = document.body.querySelectorAll<HTMLLIElement>('.operation')
     operations.forEach(operation => {
-        const heading = operation.querySelector('.heading')
-        const content = operation.querySelector('.content')
+        const heading = operation.querySelector<HTMLDivElement>('.heading')
+        const content = operation.querySelector<HTMLDivElement>('.content')
         try {
             const headingInfo = DomParser.parseHeading(heading)
             const contentInfo = DomParser.parseContent(content)
-            const button = createButton('复制')
+            const button = ElementHelper.createButton('复制')
             button.addEventListener('click', () => {
                 UtilHelp.copy(JSON.stringify(headingInfo))
+                console.log(contentInfo)
             })
             heading.appendChild(button)
         } catch (e) {

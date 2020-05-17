@@ -1,5 +1,16 @@
+export const enum CopyResultFlag {
+    success = 1,
+    fail = 0
+}
+
+export interface CopyResult {
+    error: any,
+    msg: CopyResultFlag
+}
+
+
 export class UtilHelp {
-    static copy(text: string) {
+    static copy(text: string): CopyResult {
         const textArea = document.createElement('textarea')
 
         textArea.style.position = 'fixed'
@@ -18,10 +29,10 @@ export class UtilHelp {
 
         textArea.select()
 
-        let msg = ''
+        let msg = CopyResultFlag.fail
         let error = null
         try {
-            msg = document.execCommand('copy') ? '成功' : '失败'
+            msg = document.execCommand('copy') ? CopyResultFlag.success : CopyResultFlag.fail
         } catch (err) {
             error = err
         } finally {
