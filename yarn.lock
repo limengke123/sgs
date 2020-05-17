@@ -515,9 +515,9 @@ semver@^6.0.0:
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
 
 sg2ts@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.npmjs.org/sg2ts/-/sg2ts-1.1.3.tgz#c4bcfc55f65f8545ada85085b34b597a97b77900"
-  integrity sha512-/7cRPXAwB2Ph4XzKsCOiHu9/0oVxMfG8hlrK9g+Yv8G+/QZ/Trc+Q402+9NNuYA24UuAsA2qUy2CBN1J80b+GA==
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/sg2ts/-/sg2ts-1.2.0.tgz#b6f4248b8dd07a0f848bf12a935af2ebeb20647d"
+  integrity sha512-dVUoOk/ZG32ybQn3N9xHLzlateD71zVYHT3xnwHFA2nVUhAHqg3W6XG4Xq2fpSIoKWVlr+5kkBzOtf0yo4LP1A==
 
 slash@^3.0.0:
   version "3.0.0"

@@ -1,7 +1,8 @@
 import {DomParser} from "./domParser";
-import {UtilHelp} from "./utilHelp";
-import {ElementHelper} from "./elementHelper";
+import {buttonTypeEnum, ElementHelper} from "./elementHelper";
 import {reorganizeDataIntoTemplate} from "./template/functionDeclaration";
+import {reorganizeRequestModel} from "./template/requestDeclaration";
+import {reorganizeResponseModel} from "./template/responseDeclaration";
 
 
 setTimeout(() => {
@@ -13,13 +14,24 @@ setTimeout(() => {
             const headingInfo = DomParser.parseHeading(heading)
             const contentInfo = DomParser.parseContent(content)
             const functionDeclaration = reorganizeDataIntoTemplate(headingInfo, contentInfo)
+            const requestDeclaration = reorganizeRequestModel(headingInfo, contentInfo)
+            const responseDeclaration = reorganizeResponseModel(contentInfo)
             const button = ElementHelper.createButton('复制')
             button.addEventListener('click', () => {
-                UtilHelp.copy(JSON.stringify(headingInfo))
                 console.log(functionDeclaration)
-                // console.log(contentInfo)
+            })
+            const button2 = ElementHelper.createButton('复制入参', buttonTypeEnum.primary)
+            button2.addEventListener('click', () => {
+                console.log(requestDeclaration)
+            })
+
+            const button3 = ElementHelper.createButton('复制返参')
+            button3.addEventListener('click', () => {
+                console.log(responseDeclaration)
             })
             heading.appendChild(button)
+            heading.appendChild(button2)
+            heading.appendChild(button3)
         } catch (e) {
             console.log(e)
         }

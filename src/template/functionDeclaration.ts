@@ -1,12 +1,14 @@
 import {ContentModelInfo, HeadingModelInfo} from "../domParser";
+import {getRequestModelName} from "./requestDeclaration";
+import {getResponseModelName} from "./responseDeclaration";
 
 const defaultFunctionDeclaration = `
 /**
  * @name {{methodName}}
  * @description {{comment}}
  * */
-export function {{methodName}}(opts: {{requestInterface}}) {
-  return instance<{{responseInterface}}>({
+export function {{methodName}}(opts: {{requestModelName}}) {
+  return instance<{{responseModelName}}>({
     method: '{{methodType}}',
     url: '{{path}}',
     opts: opts
@@ -24,13 +26,20 @@ export const reorganizeDataIntoTemplate = function (headingInfo: HeadingModelInf
     const template = getFunctionDeclarationTemplate()
     // const { methodType, comment, path, methodName } = headingInfo
     // const { requestModel, responseModel } = contentInfo
-    const reg = /{{(methodName|comment|requestInterface|responseInterface|methodType|path)}}/g
+    const reg = /{{(methodName|comment|requestModelName|responseModelName|methodType|path)}}/g
     return template.replace(reg, (rawData, key) => {
         if (headingInfo[key]) {
             return headingInfo[key]
         }
         if (contentInfo[key]) {
             return contentInfo[key]
+        }
+        if (key === 'requestModelName') {
+            return getRequestModelName(headingInfo)
+        }
+
+        if (key === 'responseModelName') {
+            return getResponseModelName(contentInfo)
         }
         return rawData
     })

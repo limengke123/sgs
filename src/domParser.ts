@@ -1,4 +1,4 @@
-import {sg2ts} from 'sg2ts'
+import {sg2ts, Resolver} from 'sg2ts'
 import {PathHelper} from "./utilHelp";
 
 
@@ -9,9 +9,14 @@ export interface RequestModelInfo {
     type: string
 }
 
+export interface ResponseModelInfo {
+    name: string,
+    value: string
+}
+
 export interface ContentModelInfo {
     requestModel: RequestModelInfo[],
-    responseModel: string[]
+    responseModel: ResponseModelInfo[]
 }
 
 export interface HeadingModelInfo {
@@ -57,10 +62,10 @@ export class DomParser {
         return { paramName, required, description, type }
     }
 
-    static parseResponseModel(dom: HTMLDivElement): string[] {
+    static parseResponseModel(dom: HTMLDivElement): ResponseModelInfo[] {
         const childNodes = dom.childNodes || []
         let index = 0
-        let result = []
+        let result: ResponseModelInfo[] = []
         let fragment = []
         while (index < childNodes.length) {
             const currentNode = childNodes[index]
@@ -69,14 +74,23 @@ export class DomParser {
                 continue
             }
             if (currentNode.nodeName.toUpperCase() === 'BR') {
-                result.push(fragment)
+                result.push({
+                    name: Resolver.extractNameFromHead(Resolver.handleSpecialSymbol(fragment[0])),
+                    value: sg2ts(fragment.join('\n'))
+                })
                 fragment = []
             } else {
                 fragment.push(currentNode.innerText)
             }
         }
-        result.push(fragment)
-        return result.map(item => sg2ts(item.join('\n')))
+        if (fragment[0]) {
+            result.push({
+                name: Resolver.extractNameFromHead(Resolver.handleSpecialSymbol(fragment[0])),
+                value: sg2ts(fragment.join('\n'))
+            })
+        }
+        console.log(result)
+        return result
     }
 
 }
