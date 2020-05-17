@@ -45,3 +45,21 @@ export class UtilHelp {
         }
     }
 }
+
+export class PathHelper {
+
+    static getNameFromPath(path: string): string {
+        const pathArr = PathHelper.splitPath(path)
+        let name = pathArr[pathArr.length - 1] || ''
+        return PathHelper.removeSuffix(name)
+    }
+
+    static splitPath(path: string): string[] {
+        return path.split('/')
+    }
+
+    static removeSuffix(originName: string): string {
+        const [name, _] = originName.split('.')
+        return name
+    }
+}

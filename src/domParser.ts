@@ -1,4 +1,5 @@
 import {sg2ts} from 'sg2ts'
+import {PathHelper} from "./utilHelp";
 
 
 export interface RequestModelInfo {
@@ -8,22 +9,29 @@ export interface RequestModelInfo {
     type: string
 }
 
+export interface ContentModelInfo {
+    requestModel: RequestModelInfo[],
+    responseModel: string[]
+}
+
 export interface HeadingModelInfo {
     methodType: string, // 方法名称
     path: string, // 路径
     comment: string // 接口注解
+    methodName: string // 方法名称
 }
 
 export class DomParser {
 
     static parseHeading(headingDom: HTMLDivElement): HeadingModelInfo {
-        const methodType = headingDom.querySelector<HTMLSpanElement>('.http_method').innerText.trim()
+        const methodType = headingDom.querySelector<HTMLSpanElement>('.http_method').innerText.trim().toLowerCase()
         const path = headingDom.querySelector<HTMLSpanElement>('.path').innerText.trim()
+        const methodName = PathHelper.getNameFromPath(path)
         const comment = headingDom.querySelector<HTMLUListElement>('.options').innerText.trim()
-        return { methodType, path, comment }
+        return { methodType, path, comment, methodName }
     }
 
-    static parseContent(contentDom: HTMLDivElement): [RequestModelInfo[], string[]] {
+    static parseContent(contentDom: HTMLDivElement): ContentModelInfo {
         const operationParamsDom = contentDom.querySelector<HTMLTableElement>('.operation-params')
         const operationParamDomList = operationParamsDom
             ? operationParamsDom.querySelectorAll('tr')
@@ -34,7 +42,7 @@ export class DomParser {
             operationParamDom => DomParser.parseRequestModel(operationParamDom)
         )
         const responseModel = DomParser.parseResponseModel(responseModelDom)
-        return [requestModel, responseModel]
+        return { requestModel, responseModel }
     }
 
     static parseRequestModel(dom: HTMLTableRowElement): RequestModelInfo {

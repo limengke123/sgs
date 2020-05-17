@@ -1,6 +1,7 @@
 import {DomParser} from "./domParser";
 import {UtilHelp} from "./utilHelp";
 import {ElementHelper} from "./elementHelper";
+import {reorganizeDataIntoTemplate} from "./template/functionDeclaration";
 
 
 setTimeout(() => {
@@ -11,10 +12,12 @@ setTimeout(() => {
         try {
             const headingInfo = DomParser.parseHeading(heading)
             const contentInfo = DomParser.parseContent(content)
+            const functionDeclaration = reorganizeDataIntoTemplate(headingInfo, contentInfo)
             const button = ElementHelper.createButton('复制')
             button.addEventListener('click', () => {
                 UtilHelp.copy(JSON.stringify(headingInfo))
-                console.log(contentInfo)
+                console.log(functionDeclaration)
+                // console.log(contentInfo)
             })
             heading.appendChild(button)
         } catch (e) {
