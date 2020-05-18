@@ -1,5 +1,4 @@
 import {Compiler} from "../src/compiler";
-import exp = require("constants");
 
 describe('测试compiler', () => {
 
@@ -33,6 +32,12 @@ describe('测试compiler', () => {
         it('应该能处理undefined的情况', function () {
             compiler.setRawData({})
             expect(compiler.unitCompile('name')).toBe('')
+        })
+
+
+        it('处理正则的情况', () => {
+            compiler.setRawData({name: 'Result<string>'})
+            expect(compiler.unitCompile('name.replace(/Result\<(.*)\>/g, (_, b) => b)')).toBe('string')
         })
     })
 

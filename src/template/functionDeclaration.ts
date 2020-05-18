@@ -1,14 +1,13 @@
 import {ContentModelInfo, HeadingModelInfo} from "../domParser";
-import {getRequestModelName} from "./requestDeclaration";
-import {getResponseModelName} from "./responseDeclaration";
+import {Compiler} from "../compiler";
 
 const defaultFunctionDeclaration = `
 /**
  * @name {{methodName}}
  * @description {{comment}}
  * */
-export function {{methodName}}(opts: {{requestModelName}}) {
-  return instance<{{responseModelName}}>({
+export function {{methodName}}(opts: {{methodName ? methodName + 'Request' : 'request'}}) {
+  return instance<{{ responseModel[0] ? responseModel[0].name.replace(/Result\<(.*)\>/g, (_, b) => b) : 'any'}}>({
     method: '{{methodType}}',
     url: '{{path}}',
     opts: opts
@@ -24,23 +23,6 @@ export const getFunctionDeclarationTemplate = function () {
 
 export const reorganizeDataIntoTemplate = function (headingInfo: HeadingModelInfo, contentInfo: ContentModelInfo) {
     const template = getFunctionDeclarationTemplate()
-    // const { methodType, comment, path, methodName } = headingInfo
-    // const { requestModel, responseModel } = contentInfo
-    const reg = /{{(methodName|comment|requestModelName|responseModelName|methodType|path)}}/g
-    return template.replace(reg, (rawData, key) => {
-        if (headingInfo[key]) {
-            return headingInfo[key]
-        }
-        if (contentInfo[key]) {
-            return contentInfo[key]
-        }
-        if (key === 'requestModelName') {
-            return getRequestModelName(headingInfo)
-        }
-
-        if (key === 'responseModelName') {
-            return getResponseModelName(contentInfo)
-        }
-        return rawData
-    })
+    const compiler = new Compiler(template, {...headingInfo, ...contentInfo})
+    return compiler.compile()
 }
