@@ -4,6 +4,7 @@ import {reorganizeDataIntoTemplate} from "./template/functionDeclaration";
 import {reorganizeRequestModel} from "./template/requestDeclaration";
 import {reorganizeResponseModel} from "./template/responseDeclaration";
 import {UtilHelp} from "./utilHelp";
+import {toast} from "./components/toast";
 
 
 setTimeout(() => {
@@ -21,17 +22,20 @@ setTimeout(() => {
             button.addEventListener('click', () => {
                 console.log(functionDeclaration)
                 UtilHelp.copy(functionDeclaration)
+                toast.success('复制函数成功!')
             })
             const button2 = ElementHelper.createButton('复制入参', buttonTypeEnum.primary)
             button2.addEventListener('click', () => {
                 console.log(requestDeclaration)
                 UtilHelp.copy(requestDeclaration)
+                toast.success('复制入参成功!')
             })
 
             const button3 = ElementHelper.createButton('复制返参', buttonTypeEnum.normal)
             button3.addEventListener('click', () => {
                 console.log(responseDeclaration)
                 UtilHelp.copy(responseDeclaration)
+                toast.success('复制返参成功！')
             })
             heading.appendChild(button)
             heading.appendChild(button2)

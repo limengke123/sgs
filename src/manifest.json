@@ -17,7 +17,7 @@
     {
       "matches": ["<all_urls>"],
       "js": ["js/content-scripts.js"],
-      "css": ["css/custom.css"],
+      "css": ["css/custom.css", "css/toast.css"],
       "run_at": "document_end"
     }
   ],
