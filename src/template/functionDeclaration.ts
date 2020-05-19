@@ -1,4 +1,4 @@
-import {ContentModelInfo, HeadingModelInfo} from "../domParser";
+import {ContentModelInfo, HeadingModelInfo} from "../util/domParser";
 import {Compiler} from "../compiler";
 
 const defaultFunctionDeclaration = `

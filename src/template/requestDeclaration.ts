@@ -1,4 +1,4 @@
-import {ContentModelInfo, HeadingModelInfo, RequestModelInfo} from "../domParser";
+import {ContentModelInfo, HeadingModelInfo, RequestModelInfo} from "../util/domParser";
 
 
 export const getRequestModelName = function (headingInfo: HeadingModelInfo, requestModelName?: string) {

@@ -1,9 +1,9 @@
-import {DomParser} from "./domParser";
-import {buttonTypeEnum, ElementHelper} from "./elementHelper";
+import {DomParser} from "./util/domParser";
+import {buttonTypeEnum, ElementHelper} from "./util/elementHelper";
 import {reorganizeDataIntoTemplate} from "./template/functionDeclaration";
 import {reorganizeRequestModel} from "./template/requestDeclaration";
 import {reorganizeResponseModel} from "./template/responseDeclaration";
-import {UtilHelp} from "./utilHelp";
+import {UtilHelp} from "./util/utilHelp";
 import {toast} from "./components/toast";
 
 

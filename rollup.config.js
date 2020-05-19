@@ -14,6 +14,7 @@ export default {
         commonjs(),
         rollupTypescript(),
         copy({
+            verbose: true,
             targets: [
                 {src: 'src/html/**/*', dest: 'lib/html'},
                 {src: 'src/css/**/*', dest: 'lib/css'},
