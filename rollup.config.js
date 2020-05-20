@@ -19,7 +19,7 @@ export default {
                 {src: 'src/html/**/*', dest: 'lib/html'},
                 {src: 'src/css/**/*', dest: 'lib/css'},
                 {src: 'src/img/**/*', dest: 'lib/img'},
-                {src: 'src/js/**/*', dest: 'lib/js'},
+                // {src: 'src/js/**/*', dest: 'lib/js'},
                 {src: 'src/manifest.json', dest: 'lib/'},
             ]
         })

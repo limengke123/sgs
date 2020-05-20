@@ -24,6 +24,11 @@
   "background": {
     "scripts": ["js/background.js"]
   },
+  "options_page": "html/options.html",
+  "options_ui": {
+    "page": "html/options.html",
+    "chrome_style": true
+  },
   "permissions": [
     "contextMenus",
     "tabs",

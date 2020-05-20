@@ -44,6 +44,15 @@ export class UtilHelp {
             msg
         }
     }
+
+
+    static promisify<T>(method: Function) {
+        return (...params) => {
+            return new Promise<T>(((resolve) => {
+                method(...params, data => resolve(data))
+            }))
+        }
+    }
 }
 
 export class PathHelper {

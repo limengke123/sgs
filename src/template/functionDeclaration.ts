@@ -1,5 +1,6 @@
 import {ContentModelInfo, HeadingModelInfo} from "../util/domParser";
 import {Compiler} from "../compiler";
+import {UtilHelp} from "../util/utilHelp";
 
 const defaultFunctionDeclaration = `
 /**
@@ -14,15 +15,16 @@ export function {{methodName}}(opts: {{methodName ? methodName + 'Request' : 're
   });
 }
 `
+const getStorage = UtilHelp.promisify<{[key: string]: any}>(chrome.storage.sync.get)
 
-export const getFunctionDeclarationTemplate = function () {
+export const getFunctionDeclarationTemplate = async function () {
     // 后续可以实现通过配置拿到所需要的模版，这里默认实现是返回默认模版
-    return defaultFunctionDeclaration
+    const data =  await getStorage({methodTemplate: defaultFunctionDeclaration})
+    return data.methodTemplate
 }
 
 
-export const reorganizeDataIntoTemplate = function (headingInfo: HeadingModelInfo, contentInfo: ContentModelInfo) {
-    const template = getFunctionDeclarationTemplate()
+export const reorganizeDataIntoTemplate = function (headingInfo: HeadingModelInfo, contentInfo: ContentModelInfo, template: string) {
     const compiler = new Compiler(template, {...headingInfo, ...contentInfo})
     return compiler.compile()
 }

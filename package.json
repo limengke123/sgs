@@ -4,9 +4,12 @@
   "description": "chrome extension of swagger helper",
   "main": "index.js",
   "scripts": {
-    "start": "rollup -c -w",
-    "start:background": "rollup -c rollup.config.background.js -w",
-    "build": "yarn clear && rollup -c && rollup -c rollup.config.background.js",
+    "start": "yarn start:injectJs -w & yarn start:optionsJs -w & yarn start:contentJs -w & yarn start:backgroundJs -w",
+    "start:injectJs": "rollup -c rollup.config.js",
+    "start:backgroundJs": "cross-env FILE=background rollup -c rollup.config.other.js",
+    "start:contentJs": "cross-env FILE=content-scripts rollup -c rollup.config.other.js",
+    "start:optionsJs": "cross-env FILE=options rollup -c rollup.config.other.js",
+    "build": "yarn clear && yarn start:injectJs & yarn start:backgroundJs & yarn start:contentJs & yarn start:optionsJs",
     "test": "jest",
     "clear": "rimraf ./lib"
   },
@@ -23,6 +26,7 @@
   "devDependencies": {
     "@types/chrome": "^0.0.112",
     "@types/jest": "^25.2.2",
+    "cross-env": "^7.0.2",
     "jest": "^26.0.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.10.2",
