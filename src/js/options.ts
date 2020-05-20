@@ -22,7 +22,6 @@ document.getElementById('save').addEventListener('click', function() {
     chrome.storage.sync.set({
         methodTemplate: methodTemplate
     }, () => {
-        console.log(12312)
         document.getElementById('status').textContent = '保存成功！'
         setTimeout(() => {document.getElementById('status').textContent = '';}, 800)
     })
