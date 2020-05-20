@@ -7,6 +7,7 @@ export interface RequestModelInfo {
     required: boolean, // 是否必传
     description: string, //
     type: string
+    baseRequestTemplate: string // 基本的组装类型，方便遍历使用
 }
 
 export interface ResponseModelInfo {
@@ -59,7 +60,19 @@ export class DomParser {
         }
         const description = columns[2].innerText.trim()
         const type = Resolver.getTypeString(columns[4].innerText.trim())
-        return { paramName, required, description, type }
+        return { paramName, required, description, type, baseRequestTemplate: DomParser.buildSingleRequestBaseTemplate(paramName, required, description, type) }
+    }
+
+    static buildSingleRequestBaseTemplate(paramName: string, required: boolean, description: string, type: string): string {
+        let result = `${paramName}`
+        if (!required) {
+            result += '?'
+        }
+        result += `: ${type}`
+        if (description) {
+            result += ` //${description}`
+        }
+        return result
     }
 
     static parseResponseModel(dom: HTMLDivElement): ResponseModelInfo[] {

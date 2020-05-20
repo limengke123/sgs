@@ -34,7 +34,7 @@ setTimeout(() => {
                 const contentInfo = DomParser.parseContent(content)
                 const functionDeclaration = reorganizeDataIntoTemplate(headingInfo, contentInfo, methodTemplate)
                 const requestDeclaration = reorganizeRequestModel(headingInfo, contentInfo)
-                const responseDeclaration = reorganizeResponseModel(contentInfo)
+                const responseDeclaration = reorganizeResponseModel(headingInfo, contentInfo)
                 const button = ElementHelper.createButton('复制函数')
                 button.addEventListener('click', () => {
                     console.log(functionDeclaration)

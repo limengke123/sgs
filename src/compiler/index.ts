@@ -17,7 +17,6 @@ export class Compiler<D extends Object = {}> {
 
     compile() {
         const middleResult = this.rawString.split(this.splitReg)
-        // pass 具体的解析方法
         this.resultString = middleResult.map(item => {
             return item.replace(this.specialReg, (_, data) => {
                 return this.unitCompile(data)

@@ -1,4 +1,6 @@
-import {ContentModelInfo, HeadingModelInfo, RequestModelInfo} from "../util/domParser";
+import {ContentModelInfo, HeadingModelInfo} from "../util/domParser";
+import {Compiler} from "../compiler";
+import {defaultRequestDeclarationTemplate} from "./defaultTemplate";
 
 
 export const getRequestModelName = function (headingInfo: HeadingModelInfo, requestModelName?: string) {
@@ -11,27 +13,7 @@ export const getRequestModelName = function (headingInfo: HeadingModelInfo, requ
 
 
 export const reorganizeRequestModel = function (headingInfo: HeadingModelInfo, contentInfo: ContentModelInfo) {
-    const { requestModel } = contentInfo
-    const requestModelName = getRequestModelName(headingInfo)
-    const start = `export interface ${requestModelName} {\n`
-    const end = '\n}'
-    const body = requestModel.map(item => generateSingleData(item)).join('\n')
-
-    return start + body + end
+    const compiler = new Compiler(defaultRequestDeclarationTemplate, {...headingInfo, ...contentInfo})
+    return compiler.compile()
 }
-
-
-const generateSingleData = function (requestModel: RequestModelInfo): string {
-    const { paramName, description, required, type } = requestModel
-    let result = `  ${paramName}`
-    if (!required) {
-        result += '?'
-    }
-    result += `: ${type}`
-    if (description) {
-        result += ` //${description}`
-    }
-    return result
-}
-
 

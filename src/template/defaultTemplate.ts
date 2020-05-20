@@ -11,3 +11,15 @@ export function {{methodName}}(opts: {{methodName ? methodName + 'Request' : 're
   });
 }
 `
+
+
+export const defaultResponseDeclarationTemplate = `
+{{responseModel.map(item => item.value).join('\\n\\n')}}
+`
+
+
+export const defaultRequestDeclarationTemplate = `
+export interface {
+  {{requestModel.map(item => item.baseRequestTemplate).join('\\n  ')}}
+}
+`

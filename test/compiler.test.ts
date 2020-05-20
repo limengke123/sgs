@@ -1,4 +1,5 @@
 import {Compiler} from "../src/compiler";
+import exp = require("constants");
 
 describe('测试compiler', () => {
 
@@ -38,6 +39,19 @@ describe('测试compiler', () => {
         it('处理正则的情况', () => {
             compiler.setRawData({name: 'Result<string>'})
             expect(compiler.unitCompile('name.replace(/Result\<(.*)\>/g, (_, b) => b)')).toBe('string')
+        })
+
+
+        it('处理循环的条件', function () {
+            compiler.setRawData({list: [{name: 1}, {name: 2}, {name: 3}]})
+            expect(compiler.unitCompile('list.map(item => item.name).join(",")')).toBe('1,2,3')
+        })
+
+        it('正常处理\n的问题', function () {
+            compiler.setRawData({list: [{name: 1}, {name: 2}]})
+            const result = `1
+2`
+            expect(compiler.unitCompile('list.map(item => item.name).join("\\n")')).toBe(result)
         })
     })
 
@@ -115,6 +129,13 @@ describe('测试compiler', () => {
 
             compiler.setRawData(rawData2)
             expect(compiler.compile()).toBe(result2)
+        })
+
+
+        it('处理循环的情况', function () {
+            compiler.setRawString("{{responseModel.map(item => item.value).join(',')}}")
+            compiler.setRawData({responseModel: [{value: 1}, {value: 2}, {value: 3}, {value: 4}]})
+            expect(compiler.compile()).toBe('1,2,3,4')
         })
 
     })
