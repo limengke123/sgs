@@ -9,7 +9,7 @@
     "start:backgroundJs": "cross-env FILE=background rollup -c rollup.config.other.js",
     "start:contentJs": "cross-env FILE=content-scripts rollup -c rollup.config.other.js",
     "start:optionsJs": "cross-env FILE=options rollup -c rollup.config.other.js",
-    "build": "yarn clear && yarn start:injectJs & yarn start:backgroundJs & yarn start:contentJs & yarn start:optionsJs",
+    "build": "cross-env mode=production yarn clear && yarn start:injectJs & yarn start:backgroundJs & yarn start:contentJs & yarn start:optionsJs",
     "test": "jest",
     "clear": "rimraf ./lib"
   },

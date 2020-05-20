@@ -6,6 +6,21 @@ import {reorganizeResponseModel} from "./template/responseDeclaration";
 import {UtilHelp} from "./util/utilHelp";
 import {toast} from "./components/toast";
 
+// todo: 这里和content_script 通信一直有问题，导致无法使用模版
+declare global {
+    interface Window {
+        __METHOD_TEMPLATE__: string
+    }
+}
+
+window.addEventListener('message', (e) => {
+    if (e.data.methodTemplate) {
+        window.__METHOD_TEMPLATE__ = e.data.methodTemplate
+    }
+}, false)
+
+window.postMessage('1', '*')
+
 
 setTimeout(() => {
     (async function () {

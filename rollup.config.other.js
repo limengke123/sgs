@@ -3,6 +3,7 @@ import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 
 const FILE_NAME = process.env.FILE
+const mode = process.env.mode
 
 export default {
     input: `./src/js/${FILE_NAME}.ts`,
@@ -13,6 +14,8 @@ export default {
     plugins: [
         resolve(),
         commonjs(),
-        rollupTypescript(),
+        rollupTypescript({
+            abortOnError: mode === 'production'
+        }),
     ]
 }
