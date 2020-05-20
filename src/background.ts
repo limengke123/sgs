@@ -7,7 +7,9 @@ chrome.contextMenus.create({
     contexts: ['selection'],
     onclick: function (params) {
         console.log(params.selectionText)
-        console.log(sg2ts(params.selectionText))
+        console.log(sg2ts(params.selectionText, {
+            splitType: splitTypeEnum.comma
+        }))
         UtilHelp.copy(sg2ts(params.selectionText, {
             splitType: splitTypeEnum.comma
         }))
