@@ -44,15 +44,6 @@ export class UtilHelp {
             msg
         }
     }
-
-
-    static promisify<T>(method: Function) {
-        return (...params) => {
-            return new Promise<T>(((resolve) => {
-                method(...params, data => resolve(data))
-            }))
-        }
-    }
 }
 
 export class PathHelper {
@@ -70,5 +61,38 @@ export class PathHelper {
     static removeSuffix(originName: string): string {
         const [name, _] = originName.split('.')
         return name
+    }
+}
+
+
+export const enum TemplateIdEnum {
+    MethodType = 'methodType',
+    RequestType = 'requestType',
+    ResponseType = 'responseType'
+}
+
+export class DomMessage {
+
+
+    static set(id: TemplateIdEnum, value: string) {
+        let div: HTMLElement = document.getElementById(id)
+        if (!div) {
+            div = document.createElement('div')
+            div.dataset.content = value
+            div.id = id
+            document.body.append(div)
+        }
+        div.dataset.content = value
+    }
+
+
+    static get(id: TemplateIdEnum): string {
+        const div = document.getElementById(id)
+        let result = ''
+        if (div) {
+            result = div.dataset.content || ''
+            div.parentNode.removeChild(div)
+        }
+        return result
     }
 }
