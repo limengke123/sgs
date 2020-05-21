@@ -19,7 +19,7 @@ export const defaultResponseDeclarationTemplate = `
 
 
 export const defaultRequestDeclarationTemplate = `
-export interface {
+export interface {{methodName ? methodName + 'Request' : 'request'}} {
   {{requestModel.map(item => item.baseRequestTemplate).join('\\n  ')}}
 }
 `
