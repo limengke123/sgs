@@ -1,6 +1,6 @@
 # sgs
 
-`swagger` 页面的前端辅助工具，快速复制对应接口的方法声明（`typescript`）。对 `swagger` 文档中的输入值和返回值类型
+`swagger` 页面谷歌浏览器扩展，帮助前端快速复制对应接口的方法声明（`typescript`）。对 `swagger` 文档中的输入值和返回值类型
 处理，生成 `typescript` 对应的 `interface`。
 
 
